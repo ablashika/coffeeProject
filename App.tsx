@@ -21,60 +21,29 @@ import {
   Header
 } from 'react-native/Libraries/NewAppScreen';
 import FirstScreen from './src/screens/FirstScreen';
+import SecondScreen from './src/screens/SecondScreen';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 
 type SectionProps = PropsWithChildren<{
   title: string;
 }>;
-
-function Section({children, title}: SectionProps): JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
-  return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
-      </Text>
-    </View>
-  );
-}
+const Stack = createNativeStackNavigator();
 
 function App(): JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
 
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
-
   return (
-    <SafeAreaView >
-      {/* <StatusBar
-        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-        backgroundColor={backgroundStyle.backgroundColor}
-      /> */}
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        // style={backgroundStyle}
-        >
-          
-        <FirstScreen/>
-        
-      </ScrollView>
-    </SafeAreaView>
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName="FirstScreen" >
+         <Stack.Screen name="FirstScreen" component={FirstScreen} />
+        <Stack.Screen name="Details" component={SecondScreen} />
+      </Stack.Navigator>
+    </NavigationContainer> 
+
+
+   
   );
 }
 
